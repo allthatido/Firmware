@@ -24,7 +24,7 @@ void inertial_filter_predict(float dt, float x[2], float acc)
 void inertial_filter_correct(float e, float dt, float x[2], int i, float w)
 {
 	if (PX4_ISFINITE(e) && PX4_ISFINITE(w) && PX4_ISFINITE(dt)) {
-		float ewdt = e * w * dt;
+		float ewdt = constrain((e * w * dt),-M_PI,M_PI);
 		x[i] += ewdt;
 
 		if (i == 0) {
